@@ -4,12 +4,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.util.Random;
+import utils.BasePage;
 
 import static pages.JamaLoginPage.*;
 import static pages.MainPage.*;
+import static pages.StreamPage.*;
 
-public class JamaLoginTest {
-    private WebDriver driver;
+public class JamaLoginTest extends BasePage {
     String version;
 
     @BeforeClass
@@ -49,8 +50,14 @@ public class JamaLoginTest {
         }
     }
 
-//    @AfterClass
-//    public void tearDown() {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void tearDown() throws InterruptedException{
+        try {
+            if (this.driver != null) {
+                this.driver.quit();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
 }
