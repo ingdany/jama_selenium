@@ -3,26 +3,24 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import java.util.Random;
 
-import static pages.LoginPage.*;
-import static pages.ProductsPage.*;
+import static pages.JamaLoginPage.*;
+import static pages.MainPage.*;
 
-public class LoginTest {
-
+public class JamaLoginTest {
     private WebDriver driver;
+    String version;
 
     @BeforeClass
     public void setUp() throws InterruptedException {
-        userIsOnLoginPage();
+        version = getVersion();
     }
 
     @DataProvider(name = "loginData")
     public Object[][] getLoginData() {
         return new Object[][] {
-                { "standard_user", "secret_sauce" },
-                { "locked_out_user", "secret_sauce" },
-                { "problem_user", "secret_sauce" },
-                { "performance_glitch_user", "secret_sauce" }
+                { "qat_user", "3TZqWxtiu4w7ZSF" },
         };
     }
 
@@ -32,14 +30,27 @@ public class LoginTest {
             enterUsername(username);
             enterPassword(password);
             clickLoginButton();
-            userWillRedirectToProductsPage();
+            searchForVersion(version);
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
     }
 
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
+    @Test
+    public void testStream() throws InterruptedException {
+        try {
+            String randomText = "Comment " + Integer.toString(new Random().nextInt(1000));
+            clickStream();
+            enterComment(randomText);
+            clickCommentButton();
+            searchAddedComment(randomText);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
+
+//    @AfterClass
+//    public void tearDown() {
+//        driver.quit();
+//    }
 }

@@ -12,7 +12,7 @@ import java.time.Duration;
 public class BasePage {
     public static WebDriver driver;
     public static WebDriverWait wait;
-    public static String baseUrl  = "https://www.saucedemo.com/";
+    public static String baseUrl  = "https://qareplicated-kotsdm-nginx-1.jamasoftware.net";
 
     public static WebElement findElement(By locator) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
